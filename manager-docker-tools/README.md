@@ -24,7 +24,7 @@ Create a folder for your project and add the following `docker-compose.yml`:
 ```yaml
 services:
   manager-server:
-    image: nw2hd/manager-io:latest
+    image: nw2hd/manager-io:dynamic
     container_name: manager-server
     ports:
       - "8080:8080"

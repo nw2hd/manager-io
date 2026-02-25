@@ -18,7 +18,7 @@ All editions have all the modules and features. The only difference is where the
 **Desktop Edition** is installed on your computer whether it's Windows, Mac or Linux. It's free forever to use, however due to its nature it doesn't support multi-user access.
 
 **Cloud Edition** is hosted in the cloud. There is nothing to install and users can access the software from any computer or mobile device through a web browser. Cloud Edition also supports multi-user access.
-[Cloud Edition, Sign Up]([https://www.manager.io/cloud-edition)
+[Sign Up](https://www.manager.io/cloud-edition "Sign Up")
 
 **Server Edition** is installed on your server.
 

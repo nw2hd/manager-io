@@ -1,4 +1,4 @@
-# Manager.io Server - Optimized Docker Image
+# Manager.io Server - Dynamic Image Docker
 
 This repository provides a specialized Docker image for **Manager.io Server**. It is designed for stability and flexibility, allowing users to choose their preferred version while providing a reliable "baseline" where core features work perfectly.
 

@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  manager-io:
+    image: nw2hd/manager-io:${IMAGE_TAG:-latest}
+    container_name: manager-server
+    restart: unless-stopped
+    
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    
+    volumes:
+      - ./data:/data
+    
+    environment:
+      - TZ=${TIMEZONE:-UTC}
+    
+    # Standard resource limits to prevent server crashes
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+# No external networks required - works out of the box

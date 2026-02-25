@@ -36,4 +36,4 @@ docker and env file is valid for [aapanel](https://www.aapanel.com) docker insta
 **For portainer and docker installation, you need to adjust docker and env files for your own needs.**
 
 # Update Policy
-There is no update.
+  > **No new upgrade will be provided since there is a dynamic image and upgrade script.**

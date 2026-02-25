@@ -2,59 +2,51 @@
 
 REPO="Manager-io/Manager"
 WORKDIR="/app"
-DATA_DIR="/data"
 
 echo "=========================================="
 echo "   Manager.io Version Manager (nw2hd)"
 echo "=========================================="
 
-# 1. SAFETY CHECK: Backup Prompt
-read -p "Have you backed up your data folder? (y/n): " confirm_backup
+# 1. Safety Check
+read -p "Have you backed up your data? (y/n): " confirm_backup
 if [[ $confirm_backup != "y" ]]; then
-    echo "Action cancelled. Please backup /data/ before upgrading."
+    echo "Aborting. Please backup /data/ before upgrading."
     exit 1
 fi
 
-# 2. Fetch versions from GitHub
-echo "Fetching available versions from GitHub..."
+# 2. Get Versions
+echo "Checking GitHub for available versions..."
 RELEASES=$(curl -s "https://api.github.com/repos/$REPO/releases?per_page=10")
 TAGS=$(echo "$RELEASES" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 
-# 3. Version Selection
-echo "Select the version you want to deploy:"
-PS3="Selection (or 'q' to quit): "
-
-select SELECTED_VERSION in $TAGS; do
-    if [[ "$REPLY" == "q" ]]; then
-        exit 0
-    elif [ -n "$SELECTED_VERSION" ]; then
-        break
-    else
-        echo "Invalid choice."
-    fi
+# 3. User Selection
+PS3="Choose a version number: "
+select SELECTED_VERSION in $TAGS "Exit"; do
+    if [[ "$SELECTED_VERSION" == "Exit" ]]; then exit 0; fi
+    if [ -n "$SELECTED_VERSION" ]; then break; fi
 done
 
-# 4. Deployment
-echo "------------------------------------------"
-echo "Downloading Version: $SELECTED_VERSION"
-DOWNLOAD_URL="https://github.com/$REPO/releases/download/$SELECTED_VERSION/ManagerServer-linux-x64.tar.gz"
+# 4. Download and Swap
+echo "Downloading $SELECTED_VERSION..."
+URL="https://github.com/$REPO/releases/download/$SELECTED_VERSION/ManagerServer-linux-x64.tar.gz"
 
-mkdir -p /tmp/manager_upd
-wget -q --show-progress -O /tmp/manager_upd/pkg.tar.gz "$DOWNLOAD_URL"
+wget -q --show-progress -O /tmp/manager.tar.gz "$URL"
 
 if [ $? -eq 0 ]; then
-    echo "Installing..."
-    # Kill process to release file locks
-    pkill ManagerServer || true
+    echo "Applying update..."
+    # Force stop the current server process
+    pkill -9 ManagerServer || true
     
-    tar -xzf /tmp/manager_upd/pkg.tar.gz -C "$WORKDIR"
-    rm -rf /tmp/manager_upd
+    # Extract new files
+    tar -xzf /tmp/manager.tar.gz -C "$WORKDIR"
+    rm /tmp/manager.tar.gz
     
-    echo "------------------------------------------"
-    echo "Update Applied: $SELECTED_VERSION"
-    echo "Please restart your container via aaPanel or Portainer."
-    echo "------------------------------------------"
+    echo "Update complete! Version $SELECTED_VERSION is installed."
+    echo "The container will now exit. Please restart it to apply changes."
+    
+    # Exit the container process to force a restart
+    kill 1
 else
-    echo "Download failed. Keeping current version."
+    echo "Download failed!"
     exit 1
 fi

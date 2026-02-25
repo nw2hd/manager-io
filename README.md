@@ -31,7 +31,7 @@ There is no official docker version currently.
 
 Install with your own risk.
 
-docker and env file is valid for [aapanel](https://www.aapanel.com) docker installation.
+docker and env file is valid for [aapanel](https://www.aapanel.com) docker installation since I am running it on my vps.
 
 **For portainer and docker installation, you need to adjust docker and env files for your own needs.**
 

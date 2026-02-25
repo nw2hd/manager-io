@@ -1,9 +1,9 @@
 # manager-io
-Manager Accounting Software - Server Edition
+Manager Accounting Software - **Server Edition version 24.9.2.1834**
 
 # Guides
 
-Manager.io is a versatile accounting software that caters to the unique needs of diverse businesses.
+[Manager.io](https://www.manager.io) is a versatile accounting software that caters to the unique needs of diverse businesses.
 
 Customize the software by activating only the modules you need, adding custom fields to capture business-specific data, and generating reports tailored to your operations.
 
@@ -21,5 +21,19 @@ All editions have all the modules and features. The only difference is where the
 [Sign Up](https://www.manager.io/cloud-edition "Sign Up")
 
 **Server Edition** is installed on your server.
+[Here is official Server Edition](https://www.manager.io/server-edition) and <a href="https://www2.manager.io/server/installation/"> Installation Guide</a>
 
 Manager.io businesses are compatible across all editions and all operating systems. This means you can transfer your data between different editions and different operating systems with ease.
+
+# Docker Edition
+
+There is no official docker version currently.
+
+Install with your own risk.
+
+docker and env file is valid for [aapanel](https://www.aapanel.com) docker installation.
+
+**For portainer and docker installation, you need to adjust docker and env files for your own needs.**
+
+# Update Policy
+There is no update.
